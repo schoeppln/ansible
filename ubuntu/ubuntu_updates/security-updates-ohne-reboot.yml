@@ -1,5 +1,5 @@
 - name: Installation von Security Updates
-  hosts: Ubuntu Server
+  hosts: all
   become: true
 
   tasks:
