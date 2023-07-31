@@ -1,5 +1,4 @@
 - name: Installation von Security Updates
-  hosts: Testgruppe
   become: true
 
   tasks:
