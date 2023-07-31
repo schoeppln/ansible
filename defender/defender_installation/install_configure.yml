@@ -1,4 +1,4 @@
-- hosts: Testgruppe
+- hosts: all
   tasks:
     - name: Install Unzip
       apt:
