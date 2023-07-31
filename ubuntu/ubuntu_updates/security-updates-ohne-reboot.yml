@@ -1,6 +1,6 @@
 - name: Installation von Security Updates
-hosts: Ubuntu Server  
-become: true
+  hosts: Ubuntu Server
+  become: true
 
   tasks:
   - name: Update apt cache
