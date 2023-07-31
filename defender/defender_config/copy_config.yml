@@ -1,0 +1,15 @@
+- hosts: Testgruppe
+  tasks:
+    - name: Download BitBucket-Repository
+      git:
+        repo: http://prd-embbucket01.dmz.becksche.de:7990/scm/ed/ansible-skripte.git
+        dest: /home/ansible/repo
+        version: master
+      become: yes
+
+    - name: Kopieren der Konfigurationsdatei
+      copy:
+        remote_src: true
+        src: /home/ansible/repo/defender_config/mdatp_managed.json
+        dest: /etc/opt/microsoft/mdatp/managed/
+      become: yes

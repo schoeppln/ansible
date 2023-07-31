@@ -1,0 +1,19 @@
+- name: Installation von Security Updates mit Reboot
+  hosts: Testgruppe
+  become: true
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+
+  - name: Upgrade packages
+    apt:
+      upgrade: safe
+    register: upgrade_output
+
+  - name: Reboot the server
+    reboot:
+      reboot_timeout: 300
+      post_reboot_delay: 60
+      test_command: uptime

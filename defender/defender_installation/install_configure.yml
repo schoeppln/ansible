@@ -1,0 +1,62 @@
+- hosts: Testgruppe
+  tasks:
+    - name: Install Unzip
+      apt:
+        name: unzip
+      become: yes
+
+    - name: Create MDATP directories
+      file:
+        path: /etc/opt/microsoft/mdatp/
+        recurse: true
+        state: directory
+        mode: "0755"
+        owner: root
+        group: root
+      become: yes
+
+    - name: Register mdatp_onboard.json
+      stat:
+        path: /etc/opt/microsoft/mdatp/mdatp_onboard.json
+      register: mdatp_onboard
+      become: yes
+
+    - name: Download WindowsDefenderATPOnboardingPackage from Bitbucket
+      git:
+        repo: http://prd-embbucket01.dmz.becksche.de:7990/scm/ed/ansible-skripte.git
+        dest: /home/ansible/repo
+        version: master
+      become: yes
+
+    - name: Extract WindowsDefenderATPOnboardingPackage.zip into /etc/opt/microsoft/mdatp
+      unarchive:
+        src: /home/ansible/repo/defender_onboarding/WindowsDefenderATPOnboardingPackage.zip
+        dest: /etc/opt/microsoft/mdatp
+        mode: "0600"
+        owner: root
+        group: root
+        remote_src: true
+      when: not mdatp_onboard.stat.exists
+      become: yes
+
+    - name: Add Microsoft APT key
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+      when: ansible_os_family == "Debian"
+      become: yes
+
+    - name: Add Microsoft apt repository for MDATP
+      apt_repository:
+        repo: "deb [arch=arm64,armhf,amd64] https://packages.microsoft.com/ubuntu/22.04/prod insiders-fast main"
+        update_cache: yes
+        state: present
+        filename: microsoft-prod
+      when: ansible_os_family == "Debian"
+      become: yes
+
+    - name: Install MDATP
+      apt:
+        name: mdatp
+        state: latest
+      become: yes

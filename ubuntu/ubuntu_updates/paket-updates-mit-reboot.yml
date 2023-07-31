@@ -1,0 +1,23 @@
+- name: Installation von Paketupdates
+  hosts: Testgruppe
+  become: true
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+
+  - name: Upgrade packages
+    apt:
+      upgrade: yes
+    register: upgrade_output
+
+  - name: Remove unused packages
+    apt:
+      autoremove: yes
+
+  - name: Reboot the server
+    reboot:
+      reboot_timeout: 300
+      post_reboot_delay: 60
+      test_command: uptime"
