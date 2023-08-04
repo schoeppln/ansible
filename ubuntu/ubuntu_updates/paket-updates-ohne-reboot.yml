@@ -1,5 +1,5 @@
 - name: Installation von Paketupdates
-  hosts: Testgruppe
+  hosts: all
   become: true
 
   tasks:

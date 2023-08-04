@@ -1,5 +1,5 @@
 - name: Installation von Security Updates mit Reboot
-  hosts: Testgruppe
+  hosts: all
   become: true
 
   tasks:
