@@ -1,6 +1,7 @@
-- name: Installation von Security Updates
+- name: Installation von Security Updates mit Reboot
   hosts: all
   become: true
+  become_method: sudo
 
   tasks:
   - name: Update apt cache
@@ -12,6 +13,8 @@
       upgrade: safe
     register: upgrade_output
 
-  - name: Remove unused packages
-    apt:
-      autoremove: yes
+  - name: Reboot the server
+    reboot:
+      reboot_timeout: 300
+      post_reboot_delay: 60
+      test_command: uptime

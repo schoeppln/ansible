@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\ansible",
-    "\\semaphore"
+    ""
   ],
-  "SelectedNode": "\\semaphore\\docker-compose.yml",
+  "SelectedNode": "\\S:\\GitHub\\ansible",
   "PreviewInSolutionExplorer": false
 }
