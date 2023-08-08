@@ -2,12 +2,11 @@
   hosts: all
   become: true
 
-  pre_tasks:
+  tasks:
     - name: Run tasks as root user
       become_user: root
       shell: "ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=3 ansible@10.10.75.1 'sudo bash'"
 
-  tasks:
     - name: Update apt cache
       apt:
         update_cache: yes
