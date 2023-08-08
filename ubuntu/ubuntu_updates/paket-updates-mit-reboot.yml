@@ -43,5 +43,5 @@
 
     - name: Mark success if the server was rebooted successfully
       debug:
-        msg: "Der Job wurde erfolgreich durchgeführt."
+        msg: "The server was rebooted successfully."
       when: reboot_result is succeeded

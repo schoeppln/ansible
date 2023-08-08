@@ -1,4 +1,4 @@
-- name: Installation von Security Updates mit Reboot
+- name: Installation von Security Updates ohne Reboot
   hosts: all
   become: true
   become_method: sudo

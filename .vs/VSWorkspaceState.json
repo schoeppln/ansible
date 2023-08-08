@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ubuntu",
+    "\\ubuntu\\ubuntu_updates"
   ],
-  "SelectedNode": "\\S:\\GitHub\\ansible",
+  "SelectedNode": "\\ubuntu\\ubuntu_updates\\paket-updates-mit-reboot.yml",
   "PreviewInSolutionExplorer": false
 }

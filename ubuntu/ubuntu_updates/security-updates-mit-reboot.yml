@@ -4,22 +4,22 @@
   become_method: sudo
 
   tasks:
-  - name: Update apt cache
-    apt:
-      update_cache: yes
+    - name: Update apt cache
+      apt:
+        update_cache: yes
 
-  - name: Upgrade packages
-    apt:
-      upgrade: safe
-    register: upgrade_output
+    - name: Upgrade packages
+      apt:
+        upgrade: safe
+      register: upgrade_output
 
-  - name: Reboot the server
-    reboot:
-      reboot_timeout: 300
-      post_reboot_delay: 60
-      test_command: uptime
-    register: reboot_result
+    - name: Reboot the server
+      reboot:
+        reboot_timeout: 300
+        post_reboot_delay: 60
+        test_command: uptime
+      register: reboot_result
 
-  - name: Log reboot status
-    debug:
-      msg: "Reboot was {{ 'successful' if reboot_result.rc == 0 else 'not successful' }}"
+    - name: Log reboot status
+      debug:
+        msg: "Reboot was {{ 'successful' if reboot_result.rc == 0 else 'not successful' }}"
