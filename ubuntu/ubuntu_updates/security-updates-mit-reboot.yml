@@ -1,19 +1,8 @@
 - name: Installation von Security Updates mit Reboot
   hosts: all
-  become_user: root
-  become_method: sudo
-  become: True
+  become: yes
 
   tasks:
-    - name: Reboot the server
-      become_user: root
-      become_method: sudo
-      reboot:
-        reboot_timeout: 300
-        post_reboot_delay: 60
-        test_command: uptime
-      register: reboot_result
-      
     - name: Update apt cache
       apt:
         update_cache: yes
@@ -29,3 +18,7 @@
         post_reboot_delay: 60
         test_command: uptime
       register: reboot_result
+
+    - name: Log reboot status
+      debug:
+        msg: "Reboot was {{ 'successful' if reboot_result.rc == 0 else 'not successful' }}"
