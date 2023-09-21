@@ -21,4 +21,4 @@
 
     - name: Log reboot status
       debug:
-        msg: "Reboot was {{ 'successful' if reboot_result.rc == 0 else 'not successful' }}"
+        msg: "Reboot was {{ 'successful' if reboot_result.status == 'SUCCESS' else 'not successful' }}"
