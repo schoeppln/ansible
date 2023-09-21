@@ -9,7 +9,7 @@
 
     - name: Upgrade packages
       apt:
-        upgrade: safe
+        upgrade: yes
       register: upgrade_output
 
     - name: Reboot the server
