@@ -5,6 +5,13 @@
   become: True
 
   tasks:
+    - name: Reboot the server
+      reboot:
+        reboot_timeout: 300
+        post_reboot_delay: 60
+        test_command: uptime
+      register: reboot_result
+      
     - name: Update apt cache
       apt:
         update_cache: yes
