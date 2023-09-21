@@ -4,15 +4,18 @@
 
   tasks:
     - name: Update apt cache
+      become: yes
       apt:
         update_cache: yes
 
     - name: Upgrade packages
+      become: yes
       apt:
         upgrade: safe
       register: upgrade_output
 
     - name: Reboot the server
+      become: yes
       reboot:
         reboot_timeout: 300
         post_reboot_delay: 60
