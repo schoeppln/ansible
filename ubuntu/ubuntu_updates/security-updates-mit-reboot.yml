@@ -6,17 +6,17 @@
 
   tasks:
     - name: Update apt cache
-        apt:
-          update_cache: yes
+      apt:
+        update_cache: yes
 
     - name: Upgrade packages
-        apt:
-          upgrade: safe
-        register: upgrade_output
+      apt:
+        upgrade: safe
+      register: upgrade_output
 
     - name: Reboot the server
-        reboot:
-          reboot_timeout: 300
-          post_reboot_delay: 60
-          test_command: uptime
-        register: reboot_result
+      reboot:
+        reboot_timeout: 300
+        post_reboot_delay: 60
+        test_command: uptime
+      register: reboot_result
