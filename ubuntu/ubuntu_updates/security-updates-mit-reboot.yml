@@ -1,5 +1,7 @@
 - name: Installation von Security Updates mit Reboot
   hosts: all
+  become_user: root
+  become_method: sudo
   become: yes
 
   tasks:
