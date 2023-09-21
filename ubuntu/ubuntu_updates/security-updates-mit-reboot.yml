@@ -17,18 +17,4 @@
         reboot_timeout: 300
         post_reboot_delay: 60
         test_command: uptime
-      async: 600
-      poll: 0
       register: reboot_result
-
-    - name: Wait for the server to reboot
-      async_status:
-        jid: "{{ reboot_result.ansible_job_id }}"
-      register: job_result
-      until: job_result.finished
-      retries: 60
-      delay: 10
-
-    - name: Log reboot status
-      debug:
-        msg: "Reboot was {{ 'successful' if job_result.rc == 0 else 'not successful' }}"
