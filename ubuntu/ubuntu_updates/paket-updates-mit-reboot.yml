@@ -1,6 +1,6 @@
 - name: Installation von Paketupdates
   hosts: all
-  become: true
+  become: yes
 
   tasks:
     - name: Update apt cache
