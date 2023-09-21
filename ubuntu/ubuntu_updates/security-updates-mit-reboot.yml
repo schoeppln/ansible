@@ -6,6 +6,8 @@
 
   tasks:
     - name: Reboot the server
+      become_user: root
+      become_method: sudo
       reboot:
         reboot_timeout: 300
         post_reboot_delay: 60
