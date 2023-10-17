@@ -18,3 +18,8 @@
         post_reboot_delay: 60
         test_command: uptime
       register: reboot_result
+
+    - name: Send email notification
+      command: "echo '{{ upgrade_output.stdout_lines | to_nice_yaml }}\n\n{{ reboot_result.stdout_lines | to_nice_yaml }}' | mail -s 'Ansible Job Status - {{ 'Success' if reboot_result|success else 'Failed' }}' -r ansible@becksche.de sysadmins@becksche.de"
+      delegate_to: localhost
+      when: upgrade_output|failed or reboot_result|failed
