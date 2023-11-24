@@ -1,36 +1,10 @@
-- name: Installation von Security Updates mit Reboot
-  hosts: all
-  become: yes
+- name: Test-Mailversand
+  hosts: localhost
+  gather_facts: false
 
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-
-    - name: Upgrade Sicherheitsupdates
-      apt:
-        upgrade: dist
-      register: upgrade_output
-
-    - name: Reboot the server
-      reboot:
-        reboot_timeout: 300
-        post_reboot_delay: 60
-        test_command: uptime
-      register: reboot_result
-
-    - name: Wait for the server to come back
-      wait_for_connection:
-        delay: 10
-        timeout: 600
-      when: reboot_result is succeeded
-
-    - name: Ping test to check if server is up
-      ping:
-      when: reboot_result is succeeded
-
-    - name: Send email notification on success or failure
-      command: "echo '{{ 'Reboot was successful.' if reboot_result is succeeded else 'Reboot failed. Error message: ' ~ reboot_result.msg }}' | mail -s 'Ansible Job Status' -a 'From: ansible@becksche.de' -r ansible@becksche.de schoeppl.nico@becksche.de"
+    - name: Sende Test-E-Mail
+      command: "echo 'Dies ist eine Test-E-Mail von Ansible' | mail -s 'Test-E-Mail von Ansible' -a 'From: ansible@becksche.de' -r ansible@becksche.de sysadmins@becksche.de"
       args:
         executable: /usr/sbin/sendmail
       delegate_to: 10.200.1.115
