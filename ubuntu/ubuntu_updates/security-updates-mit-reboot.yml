@@ -9,7 +9,7 @@
 
     - name: Upgrade Sicherheitsupdates
       apt:
-        upgrade: security
+        upgrade: dist
       register: upgrade_output
 
     - name: Reboot the server
