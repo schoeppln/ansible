@@ -19,14 +19,6 @@
         test_command: uptime
       register: reboot_result
 
-    - name: Debug Informationen für upgrade_output
-      debug:
-        var: upgrade_output
-
-    - name: Debug Informationen für reboot_result
-      debug:
-        var: reboot_result
-
     - name: Wait for the server to come back
       wait_for_connection:
         delay: 10
@@ -37,21 +29,8 @@
       ping:
       when: reboot_result is succeeded
 
-    - name: Mark success if the server was rebooted successfully
-      debug:
-        msg: "The server was rebooted successfully."
-      when: reboot_result is succeeded
-
-    - name: Send email notification on successful reboot
-      command: "echo 'Reboot was successful.\n\n{{ reboot_result | to_nice_yaml }}' | mail -s 'Ansible Job Status - Success' -a 'From: ansible@becksche.de' -r ansible@becksche.de schoeppl.nico@becksche.de"
+    - name: Send email notification on success or failure
+      command: "echo '{{ 'Reboot was successful.' if reboot_result is succeeded else 'Reboot failed. Error message: ' ~ reboot_result.msg }}' | mail -s 'Ansible Job Status' -a 'From: ansible@becksche.de' -r ansible@becksche.de schoeppl.nico@becksche.de"
       args:
         executable: /usr/sbin/sendmail
       delegate_to: 10.200.1.115
-      when: reboot_result is succeeded
-
-    - name: Send email notification on failed reboot
-      command: "echo 'Reboot failed.\n\n{{ reboot_result | to_nice_yaml }}' | mail -s 'Ansible Job Status - Failed' -a 'From: ansible@becksche.de' -r ansible@becksche.de schoeppl.nico@becksche.de"
-      args:
-        executable: /usr/sbin/sendmail
-      delegate_to: 10.200.1.115
-      when: reboot_result|failed
