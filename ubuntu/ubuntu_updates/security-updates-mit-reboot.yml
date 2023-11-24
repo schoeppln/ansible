@@ -7,4 +7,3 @@
       command: "echo 'Dies ist eine Test-E-Mail von Ansible' | mail -s 'Test-E-Mail von Ansible' -a 'From: ansible@becksche.de' -r ansible@becksche.de sysadmins@becksche.de"
       args:
         executable: /usr/sbin/sendmail
-      delegate_to: 10.200.1.115
